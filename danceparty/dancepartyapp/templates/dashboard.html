@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h1>Dashboard</h1>
+
+    <h3>Currently joined parties</h3>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <th>Id</th>
+        <th>Link</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Theme</th>
+        <th>Action</th>
+        </thead>
+
+        <tbody>
+        {% for party in joined_dance_parties %}
+            <tr>
+                <td>{{ party.id }}</td>
+                <td>
+                    <a href="#">{{ party.page_link }}</a>
+                </td>
+                <td>{{ party.start_time }}</td>
+                <td>{{ party.end_time }}</td>
+                <td>{{ party.theme }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{% url 'dancepartyapp:leave_dance_party' party.id %}">Leave</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h3>Parties not participated in:</h3>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <th>Id</th>
+        <th>Link</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Theme</th>
+        <th>Action</th>
+        </thead>
+
+        <tbody>
+        {% for party in unjoined_dance_parties %}
+            <tr>
+                <td>{{ party.id }}</td>
+                <td>
+                    <a href="#">{{ party.page_link }}</a>
+                </td>
+                <td>{{ party.start_time }}</td>
+                <td>{{ party.end_time }}</td>
+                <td>{{ party.theme }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{% url 'dancepartyapp:join_dance_party' party.id %}">Join</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
